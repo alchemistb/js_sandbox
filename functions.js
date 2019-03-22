@@ -27,6 +27,7 @@ const square = function(x){
 
 // IMMEDIATELY INVOKABLE FUNCTION EXPRESSIONS (IIFEs)
 // Declare and run function at the same time
+// 'inside function'
 
 (function(){
   console.log('IIFE Ran..');
@@ -40,7 +41,8 @@ const square = function(x){
 //   console.log('Hello ' + name);
 // })('Brian');
 
-
+let carX;
+carX = 'nissan';
 // Property Methods
 // Adding functions or methods inside an object
 const todo = {
@@ -48,8 +50,11 @@ const todo = {
     console.log('Add todo...');
   },
   edit: function(id){
-    console.log(`Edit todo ${id}`)
-  }
+    console.log(`Edit todo ${id}`);
+  },
+  something: function(X){
+    console.log(`This is a test out ${X}!`);
+  } 
 };
 
 
@@ -60,3 +65,4 @@ todo.delete = function(){
 todo.add();
 todo.edit(22);
 todo.delete();
+todo.something(carX);
