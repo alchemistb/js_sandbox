@@ -67,24 +67,4 @@ scriptsArr.forEach(function(some_script){
   console.log(some_script.getAttribute('src'));
 });  // Foreach() using scriptsArr from previous step
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 console.log(val9999);
