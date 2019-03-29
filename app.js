@@ -58,13 +58,13 @@ val9999 = document.scripts;
 val9999 = document.scripts[2].getAttribute('src');
 
 
-// To turn an HTML COllection into an array to use with forEach
-let scripts = document.scripts; // Assign document.scripts to variable called scripts
+// To turn an HTML COllection into an array to use with forEach (3 steps)
+let scripts = document.scripts; // #1 Assign document.scripts to variable called scripts
 
-let scriptsArr = Array.from(scripts); // Create an array call scriptsArr using the scripts variable from previous step, and Array.from()
+let scriptsArr = Array.from(scripts); // #2 Create an array call scriptsArr using the scripts variable from previous step, and Array.from()
 
 scriptsArr.forEach(function(some_script){
   console.log(some_script.getAttribute('src'));
-});  // Foreach() using scriptsArr from previous step
+});  // #3 Use Foreach() with scriptsArr from previous step
 
 console.log(val9999);
