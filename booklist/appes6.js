@@ -95,7 +95,7 @@ document.getElementById('book-form').addEventListener('submit', function(e){
 });
 
 
-// Event Listeners for delete
+// Event Listeners for delete book
 document.getElementById('book-list').addEventListener('click', function(e){
   // Instantiate UI
   const ui = new UI();
