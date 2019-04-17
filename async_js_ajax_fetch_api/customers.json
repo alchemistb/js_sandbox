@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "John Doe",
+    "company": "123 Designs",
+    "phone": "444-444-5555"
+  },
+  {
+    "id": 2,
+    "name": "Steve Smith",
+    "company": "Hot Wheels, Ltd.",
+    "phone": "800-777-1234"
+  },
+  {
+    "id": 3,
+    "name": "Prince Paul",
+    "company": "Make It Hot Records, Inc.",
+    "phone": "336-781-9000"
+  }
+]
