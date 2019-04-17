@@ -1,5 +1,5 @@
 console.clear();
-console.log('56 - Asynch Programming with AJAX, XHR');
+console.log('56 - Asynch Programming with AJAX, XHR Method');
 console.log('');
 
 // ***STEPS***
