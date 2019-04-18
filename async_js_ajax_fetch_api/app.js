@@ -1,112 +1,59 @@
 console.clear();
-console.log('59 - Asynch Programming with AJAX and JSON');
+console.log('60 - Asynch Programming - Data From External API -Chuck Norris Project');
 console.log('');
 
-// ***STEPS***
-// 1 - Create an Event Listener for id button
-// 2 - Create a function to create the object, open a request, check the HTTP status, send the request
 
-// Create an Event Listener
-// GetElementbyId for button
-// addEventListener for click, with a function called loadCustomer, which will load the customer.json info and create the get request
-document.getElementById('button1').addEventListener('click', loadCustomer);
-
-document.getElementById('button2').addEventListener('click', loadCustomers);
+// Create Event Listener
+// Use querySelector b/c tag get-jokes is assigned to a class (not an id)
+// Add the listener for click, and create a function called getJokes
+document.querySelector('.get-jokes').addEventListener('click', getJokes);
 
 
-// Create function for object, check HTTP status, and send data
-function loadCustomer(){
-  //Create an XHR object for xmlhttp requests
-  const xhr = new XMLHttpRequest();
-
-  // OPEN() to specify the type of request to make ('GET'), and the URL or file to make it to, and set the transaction to asychronous (true)
-  xhr.open('GET', 'customer.json', true); // GET request, the file data.txt, and make it true for asychronous
-
-    xhr.onload = function(){
-    // Check to see if HTTP status is 200 (OK), and read in the text message from xhr.open() via the console.log parameters this.responseText
-    if(this.status === 200){
-      // console.log(this.responseText); // Send responseText data to console log
-      
-      const customer = JSON.parse(this.responseText);// Create a variable called customer to parse the JSON response using JSON parsing method
-
-      const output = `
-        <ul>
-          <li>ID:${customer.id}</li>
-          <li>Name:${customer.name}</li>
-          <li>Company:${customer.company}</li>
-          <li>Phone:${customer.phone}</li>
-        </ul>
-      `; // Create a variable called output and use template to create html displyed output for customer
-
-      document.getElementById('customer').innerHTML = output; // Create Event Listener using 'customer' tag to send output data to webpage without having to refresh the page
-    }
-  } 
-
-  xhr.onerror = function(){ // Check Error Status
-    console.log(`Request error..., ${this.onerror}`)
-  }
-
-
-  xhr.send(); // Actually send the data request from xhr
-
-  // readyState Values:
-  // 0: request not initialized
-  // 1: server connection establieshed
-  // 2: request received
-  // 3: processing request
-  // 4: request finished and response is ready
-
-
-  // Check the HTTP Status
-  // HTTP Statuses:
-  // 200: "OK"
-  // 403: "Forbidden"
-  // 404: "Not Found"
-}
-
-
-// Load Customers
-// Create function for object, check HTTP status, and send data
-function loadCustomers(){
-  //Create an XHR object for xmlhttp requests
-  const xhr = new XMLHttpRequest();
-
-  // OPEN() to specify the type of request to make ('GET'), and the URL or file to make it to, and set the transaction to asychronous (true)
-  xhr.open('GET', 'customers.json', true); // GET request, the file data.txt, and make it true for asychronous
-
-  xhr.onload = function(){
-  // Check to see if HTTP status is 200 (OK), and read in the text message from xhr.open() via the console.log parameters this.responseText
-    if(this.status === 200){
-      // console.log(this.responseText); // Send responseText data to console log
-      
-      const customers = JSON.parse(this.responseText);// Create a variable called customers to parse the JSON response using JSON parsing method
-
-
-      let output = ''; // Create a variable output, using let which will cause output value to change
-
-      // Foreach Loop thorugh customers, and create a variable called output. Append to output using += and use template to create html displyed output for customer
-      customers.forEach(function(customer){
-        output += `
-        <ul>
-          <li>ID:${customer.id}</li>
-          <li>Name:${customer.name}</li>
-          <li>Company:${customer.company}</li>
-          <li>Phone:${customer.phone}</li>
-        </ul>
-      `; 
-       }); 
-
-      
-      // Create Event Listener using 'customers' tag to send output data to webpage without having to refresh the page
-       document.getElementById('customers').innerHTML = output; 
-    }
-  } 
-
-  xhr.onerror = function(){ // Check Error Status
-    console.log(`Request error..., ${this.onerror}`)
-  }
-
-
-  xhr.send(); // Actually send the data request from xhr
+// Create getJokes function
+// Pass 'e' parameter
+function getJokes(e){
+  // Create variable called number, to ONLY allow a number, not a letter
+  // assign to querySelector with input type "number", with value
+  const number = document.querySelector('input[type="number"]').value;
   
-}
+
+  //Create an xhr object for xmlhttp requests
+  const xhr = new XMLHttpRequest();
+
+
+  // OPEN() to specify the type of request to make ('GET'), and the URL to access
+  // Use `template` to add ${number} at the end of the URL to allow random number of jokes
+  // Set the transaction to asychronous (true)
+  xhr.open('GET',`http://api.icndb.com/jokes/random/${number}`, true);
+
+
+  // Check the http status and send the request
+  // Create variable called response and assign to responseText, wrapped in JSON.parse()
+  xhr.onload = function(){
+    if(this.status === 200){
+      const response = JSON.parse(this.responseText);
+      console.log(response); // test to see if works
+
+      
+      let output = ''; //output variable will change because of let
+
+
+      // Check to see if response.type is success
+      if(response.type === 'success'){
+        // Use forEach to loop thorugh response, and use .value because the value object is where jokes are located
+        // Append output to template `<li>${ }</li>` for each returned joke from response
+        response.value.forEach(function(a_joke){
+          output+= `<li>${a_joke.joke}</li>`
+        }); 
+      }else{
+        output +='<li>Something went wrong...</li>';
+      }
+      // Place response output in webpage
+      document.querySelector('.jokes').innerHTML = output;
+    }
+  };
+
+  xhr.send(); // Send the API request
+
+  e.preventDefault(); // Use to prevent default behavior
+};
